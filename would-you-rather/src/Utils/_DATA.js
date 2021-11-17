@@ -1,6 +1,6 @@
 import img1 from '../../public/images/leaf.png';
-import img2 from '../../public/images/leaf.png';
-import img3 from '../../public/images/leaf.png';
+import img2 from '../../public/images/snow.png';
+import img3 from '../../public/images/tyler.png';
 
 let users = {
   sarahedo: {
