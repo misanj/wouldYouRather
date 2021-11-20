@@ -4,7 +4,6 @@ class Rank extends Component {
   render() {
     const id = this.props.id;
     const user = this.props.users[id];
-    console.log(user);
     return (
       <div className="col-md-6 mx-auto mb-2" key={user.id}>
         <div className="card border border-primary">

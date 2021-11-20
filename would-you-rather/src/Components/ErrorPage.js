@@ -1,32 +1,45 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import ErrorImg from '../assets/404.svg';
 
-export default class ErrorPage extends Component {
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="error-template">
-              <h1>Oops!</h1>
-              <h2>404 Not Found</h2>
-              <div className="error-details">
-                Sorry, an error has occured, Requested page not found!
-              </div>
-              <div className="error-actions">
-                <NavLink to="/" className="btn btn-primary btn-lg">
-                  <span className="glyphicon glyphicon-home"></span>
-                  Take Me Home{' '}
-                </NavLink>
-                <NavLink to="#" className="btn btn-default btn-lg">
-                  <span className="glyphicon glyphicon-envelope"></span> Contact
-                  Support{' '}
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #f50057;
+
+  .img-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    img {
+      width: 180px;
+      height: 180px;
+    }
   }
+
+  .content {
+    text-align: center;
+    h2 {
+      margin: 2rem 0;
+    }
+  }
+`;
+
+export default function ErrorPage() {
+  return (
+    <ErrorContainer>
+      <div className="img-container">
+        <img src={ErrorImg} alt="404-img" />
+      </div>
+      <div className="content">
+        <h2>Ooops. Page you are looking for is lost in space</h2>
+        <Link to="/" className="ghost-btn">
+          Go Home
+        </Link>
+      </div>
+    </ErrorContainer>
+  );
 }

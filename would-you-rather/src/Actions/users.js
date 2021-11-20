@@ -1,5 +1,6 @@
 export const RECEIVE_USERS = 'RECEIVE_USERS';
-export const SELECT_ANSWER = 'SELECT_ANSWER';
+export const SAVE_QUESTION_ANSWER = 'SAVE_QUESTION_ANSWER';
+import { _saveQuestionAnswer } from '../utils/_DATA';
 
 export function receiveUsers(users) {
   return {
@@ -8,9 +9,9 @@ export function receiveUsers(users) {
   };
 }
 
-export function selectAnswer({ authedUser, qid, answer }) {
+export function saveQuestionAnswer({ authedUser, qid, answer }) {
   return {
-    type: SELECT_ANSWER,
+    type: SAVE_QUESTION_ANSWER,
     authedUser,
     qid,
     answer,

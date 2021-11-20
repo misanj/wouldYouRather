@@ -1,68 +1,105 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Profile from './Profile';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../actions/authedUser';
 
-export default class NavBar extends Component {
-  render() {
-    return (
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div className="container">
-            <Link className="nav-link navbar-brand" to="/questions/answred">
-              Whould_U_Rather
-            </Link>
+const NavContainer = styled.nav`
+  padding: 0.5rem 0;
+  ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
 
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item ">
-                  <NavLink
-                    activeClassName="active"
-                    to="/questions/answred"
-                    className="nav-link"
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    activeClassName="active"
-                    to="/add"
-                    className="nav-link"
-                  >
-                    New Questions
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    activeClassName="active"
-                    to="/leaderboard"
-                    className="nav-link"
-                  >
-                    Leader Board
-                  </NavLink>
-                </li>
-              </ul>
-              <Profile />
-            </div>
-          </div>
-        </nav>
-        <hr />
-      </div>
-    );
+    li {
+      &:nth-child(3) {
+        margin-right: 3rem;
+      }
+    }
+
+    a,
+    li {
+      color: #000;
+    }
+
+    a {
+      display: block;
+    }
+
+    a:hover {
+      color: #f50057;
+    }
+
+    .logout {
+      cursor: pointer;
+
+      &:hover {
+        color: #f50057;
+        font-weight: 600;
+      }
+    }
+
+    .active {
+      background-color: #f50057;
+      padding: 1rem;
+      border-radius: 8px;
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
   }
+`;
+
+export default function NavBar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { users, authedUser } = useSelector((state) => state);
+  const currentUser = authedUser && users[authedUser];
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
+  return (
+    <NavContainer>
+      <ul>
+        <li>
+          <NavLink to="/" activeClassName="active" exact>
+            Home
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/add" activeClassName="active">
+            New Questions
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/leaderboard" activeClassName="active">
+            Leaderboard
+          </NavLink>
+        </li>
+
+        {currentUser && <p> Hello, {currentUser.name}</p>}
+
+        <li>
+          {!currentUser ? (
+            <NavLink to="/login" activeClassName="active">
+              Login
+            </NavLink>
+          ) : (
+            <div className="logout" onClick={handleLogout}>
+              Logout
+            </div>
+          )}
+        </li>
+      </ul>
+    </NavContainer>
+  );
 }

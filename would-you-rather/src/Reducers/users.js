@@ -1,5 +1,5 @@
-import { RECEIVE_USERS, SELECT_ANSWER } from '../Actions/users';
-import { POST_QUESTIONS } from '../Actions/questions';
+import { RECEIVE_USERS, SAVE_QUESTION_ANSWER } from '../actions/users';
+import { POST_QUESTIONS } from '../actions/questions';
 
 export default function users(state = {}, action) {
   switch (action.type) {
@@ -9,7 +9,7 @@ export default function users(state = {}, action) {
         ...action.users,
       };
 
-    case SELECT_ANSWER:
+    case SAVE_QUESTION_ANSWER:
       return {
         ...state,
         [action.authedUser]: {
